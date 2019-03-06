@@ -17,7 +17,7 @@
    <div id="mvp"></div>
    <div class="avr">
      <div class="name">
-       <span>{{ name }}</sapn>
+       <span id="red">{{ name }}</sapn>
        <img id='img' src="">
      </div>
      <div class="time">
@@ -143,17 +143,20 @@ var vm = new Vue({
           // console.log(result[0]);
           console.log(this.list)
           var v=['images/1.png','images/2.png','images/3.png','images/4.png','images/5.png','images/6.png'];
-          console.log(v[this.list]);
+          // console.log(v[this.list]);
           document.getElementById("img").src=v[this.list-1];
+          var red=document.getElementById('red');
+         if(this.list>0){
+           red.style.color="#ea6111";
+         }
 
-   var a=['images/gold.png','images/red.png','images/pink.png','images/blue.png','images/star.png'];
- var mvp=document.getElementById('mvp');
-console.log(this.avatar);
- mvp.style.backgroundImage="url('"+a[this.avatar-1]+"')";
 
-console.log(2);
+         var a=['images/gold.png','images/red.png','images/pink.png','images/blue.png','images/star.png'];
+         var mvp=document.getElementById('mvp');
+         // console.log(this.avatar);
+         mvp.style.backgroundImage="url('"+a[this.avatar-1]+"')";
 
-        //  console.log(style.backgroundImage);
+
 
         },
         methods:{
