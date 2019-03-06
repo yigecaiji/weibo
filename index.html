@@ -25,12 +25,7 @@
      </div>
    </div>
     </div>
-
-
-
-    <div class="text"><p id="text">{{message}}</p></div>
-
-
+    <div class="text"><p id="text" v-html="message"></p></div>
     <div class="footer">
       <div>
         <img src="images/statusdetail_icon_retweet.png" alt="">
@@ -80,8 +75,6 @@
       </textarea>
     </form>
 </div>
-
-<!-- <button onclick = "handIn()">提交</button> -->
 <script type="text/javascript">
         //var files = document.getElementById('pic').files;
         var form = new FormData();//通过HTML表单创建FormData对象
@@ -103,8 +96,6 @@
             }
             form.append('file',file);
         }
-
-
     </script>
 </body>
 <script>
@@ -120,6 +111,7 @@ var vm = new Vue({
          like:3242,
          list:'',
          avatar:'',
+         flag:1,
          message:'给个star么么',
          vip:[{id:1,value:"vip1"},
               {id:2,value:"vip2"},
@@ -136,12 +128,7 @@ var vm = new Vue({
          ]
        },
         updated (){
-          // var str = this.message;
-          //  console.log(str);
-          // var part= /\@[A-Za-z0-9\u4e00-\u9fa5]+((\.|-)[A-Za-z0-9]+)*\s/g ;
-          // var result =  str.match(part) ;
-          // console.log(result[0]);
-          console.log(this.list)
+          //选择vip
           var v=['images/1.png','images/2.png','images/3.png','images/4.png','images/5.png','images/6.png'];
           // console.log(v[this.list]);
           document.getElementById("img").src=v[this.list-1];
@@ -149,15 +136,20 @@ var vm = new Vue({
          if(this.list>0){
            red.style.color="#ea6111";
          }
-
-
+        //选择头像下的标志
          var a=['images/gold.png','images/red.png','images/pink.png','images/blue.png','images/star.png'];
          var mvp=document.getElementById('mvp');
          // console.log(this.avatar);
          mvp.style.backgroundImage="url('"+a[this.avatar-1]+"')";
-
-
-
+         //文本框@加蓝
+         var part= /\@[A-Za-z0-9\u4e00-\u9fa5]+((\.|-)[A-Za-z0-9]+)*\s/ ;
+         var result = this.message.match(part)[0];
+         // console.log(result);
+         if(part.test(this.message)&&this.flag===1){
+           //只让渲染一次
+            this.flag=0;
+            this.message=this.message.replace(part,'<span style="color:#567cad">'+result+'</span>');
+         }
         },
         methods:{
           change(x){
