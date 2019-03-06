@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>7m</title>
   <link rel="stylesheet" href="css/index.css">
  <script src="js/vue2.js"></script>
  <!-- <script src="js/rem.js"></script> -->
@@ -66,13 +66,12 @@
       <br />
       <span>认证</span>
       <select v-model="avatar">
-      <option>请选择</option>
-  <option v-for="item in mvp" :value="item.id" :key="item.id">{{ item.value }}</option>
+      <option value="">请选择</option>
+      <option v-for="item in mvp" :value="item.id" :key="item.id">{{ item.value }}</option>
       </select>
       <br />
-      <textarea v-model="message">
-
-      </textarea>
+      <textarea v-model="message"></textarea>
+      <span>@的话后面加空格就好了，只能@一个人，误删了就全删掉再写就好了</span>
     </form>
 </div>
 <script type="text/javascript">
@@ -112,7 +111,7 @@ var vm = new Vue({
          list:'',
          avatar:'',
          flag:1,
-         message:'给个star么么',
+         message:"Star一下么么",
          vip:[{id:1,value:"vip1"},
               {id:2,value:"vip2"},
               {id:3,value:"vip3"},
@@ -145,11 +144,20 @@ var vm = new Vue({
          var part= /\@[A-Za-z0-9\u4e00-\u9fa5]+((\.|-)[A-Za-z0-9]+)*\s/ ;
          var result = this.message.match(part)[0];
          // console.log(result);
+
          if(part.test(this.message)&&this.flag===1){
            //只让渲染一次
             this.flag=0;
             this.message=this.message.replace(part,'<span style="color:#567cad">'+result+'</span>');
          }
+        },
+        //监听一下message的改变，为空的时候再讲flag置1；
+        watch:{
+          message(n,o){
+            if(n==""){
+              this.flag=1;
+            }
+          }
         },
         methods:{
           change(x){
