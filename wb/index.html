@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="css/index.css">
+ <script src="js/vue2.js"></script>
+ <!-- <script src="js/rem.js"></script> -->
+</head>
+<body>
+<div id="app">
+  <div class="wb">
+   <div class="header">
+   <div class="avatar" id = "result">
+     <div id="mvp"></div>
+   </div>
+   <div class="avr">
+     <div class="name">
+       <span>{{ name }}</sapn>
+       <img id='pic' src="">
+     </div>
+     <div class="time">
+       <span>{{ time }}</span>&nbsp&nbsp<span>来自</span>&nbsp&nbsp<span ref="color">{{phone}}</span>
+     </div>
+   </div>
+    </div>
+
+
+
+    <div class="text"><p id="text">{{message}}</p></div>
+
+
+    <div class="footer">
+      <div>
+        <img src="images/statusdetail_icon_retweet.png" alt="">
+        <span>{{trans}}</span>
+      </div>
+      <div>
+        <img src="images/messages_comment_icon.png" alt="">
+        <span>{{comment}}</span>
+      </div>
+      <div id='zan'>
+        <img src="images/statusdetail_icon_like.png" alt="">
+        <span>{{like}}</span>
+      </div>
+    </div>
+  </div>
+  <form>
+      <span>上传头像：</span></span><input id="pic" type="file" name = 'pic' accept = "image/*" onchange = "selectFile()"/>
+      <br />
+      <span>用户名：</span><input type="text" v-model="name">
+      <br />
+      <span>发表时间：</span><input type="text" v-model="time">
+      <br />
+      <span>转发：</span><input type="text" v-model="trans">
+      <br />
+      <span>评论：</span><input type="text" v-model="comment">
+      <br />
+      <span>点赞：</span><input type="text" v-model="like">
+      <br />
+      <span>手机型号：</span><input type="text" v-model="phone">
+      <span>蓝色</span><input type="radio" name="123" @click="change(1)">
+      <span>灰色</span><input type="radio" name="123" checked @click="change(2)">
+      <br />
+      <span>VIP</span>
+      <select v-model="list">
+      <option value="">请选择</option>
+      <option v-for="item in vip" :value="item.id" :key="item.id">{{ item.value }}</option>
+      </select>
+      <br />
+      <span>认证</span>
+      <select v-model="avatar">
+      <option>请选择</option>
+  <option v-for="item in mvp" :value="item.id" :key="item.id">{{ item.value }}</option>
+      </select>
+      <br />
+      <textarea v-model="message">
+
+      </textarea>
+    </form>
+</div>
+
+<!-- <button onclick = "handIn()">提交</button> -->
+<script type="text/javascript">
+        //var files = document.getElementById('pic').files;
+        var form = new FormData();//通过HTML表单创建FormData对象
+        function selectFile(){
+            var files = document.getElementById('pic').files;
+            console.log(files[0]);
+            if(files.length == 0){
+                return;
+            }
+            var file = files[0];
+            //把上传的图片显示出来
+            var reader = new FileReader();
+            // 将文件以Data URL形式进行读入页面
+            reader.readAsBinaryString(file);
+            reader.onload = function(f){
+                var result = document.getElementById("result");
+                var src = "data:" + file.type + ";base64," + window.btoa(this.result);
+                result.innerHTML = '<img src ="'+src+'"/>';
+            }
+            form.append('file',file);
+        }
+
+
+    </script>
+</body>
+<script>
+
+var vm = new Vue({
+       el: '#app',
+       data: {
+         name: '长岛冰茶不加冰',
+         time: '2小时前',
+         phone: 'iphone客户端',
+         trans:845,
+         comment:1285,
+         like:3242,
+         list:'',
+         avatar:'',
+         message:'给个star么么',
+         vip:[{id:1,value:"vip1"},
+              {id:2,value:"vip2"},
+              {id:3,value:"vip3"},
+              {id:4,value:"vip4"},
+              {id:5,value:"vip5"},
+              {id:6,value:"vip6"}
+         ],
+         mvp:[{id:1,value:"gold"},
+              {id:2,value:"red"},
+              {id:3,value:"pink"},
+              {id:4,value:"blue"},
+              {id:5,value:"star"}
+         ]
+       },
+        updated (){
+          // var str = this.message;
+          //  console.log(str);
+          // var part= /\@[A-Za-z0-9\u4e00-\u9fa5]+((\.|-)[A-Za-z0-9]+)*\s/g ;
+          // var result =  str.match(part) ;
+          // console.log(result[0]);
+          console.log(this.list)
+          var v=['images/1.png','images/2.png','images/3.png','images/4.png','images/5.png','images/6.png'];
+          console.log(v[this.list]);
+          document.getElementById("pic").src=v[this.list-1];
+
+   var a=['images/gold.png','images/red.png','images/pink.png','images/blue.png','images/star.png'];
+ var mvp=document.getElementById('mvp');
+console.log(this.avatar);
+ mvp.style.backgroundImage="url('"+a[this.avatar-1]+"')";
+
+console.log(2);
+
+        //  console.log(style.backgroundImage);
+
+        },
+        methods:{
+          change(x){
+            x==1?this.$refs.color.style.color="#5187c5":this.$refs.color.style.color="";
+          }
+        }
+     })
+
+</script>
+
+</html>
