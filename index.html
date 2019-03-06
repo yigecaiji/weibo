@@ -13,13 +13,12 @@
 <div id="app">
   <div class="wb">
    <div class="header">
-   <div class="avatar" id = "result">
-     <div id="mvp"></div>
-   </div>
+   <div class="avatar" id = "result"></div>
+   <div id="mvp"></div>
    <div class="avr">
      <div class="name">
        <span>{{ name }}</sapn>
-       <img id='pic' src="">
+       <img id='img' src="">
      </div>
      <div class="time">
        <span>{{ time }}</span>&nbsp&nbsp<span>来自</span>&nbsp&nbsp<span ref="color">{{phone}}</span>
@@ -145,7 +144,7 @@ var vm = new Vue({
           console.log(this.list)
           var v=['images/1.png','images/2.png','images/3.png','images/4.png','images/5.png','images/6.png'];
           console.log(v[this.list]);
-          document.getElementById("pic").src=v[this.list-1];
+          document.getElementById("img").src=v[this.list-1];
 
    var a=['images/gold.png','images/red.png','images/pink.png','images/blue.png','images/star.png'];
  var mvp=document.getElementById('mvp');
