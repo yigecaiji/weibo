@@ -63,6 +63,9 @@
       <option value="">请选择</option>
       <option v-for="item in vip" :value="item.id" :key="item.id">{{ item.value }}</option>
       </select>
+      <p>是否红名</p>
+      <span>是</span><input type="radio" name="123" v-model="red" value="1">
+      <span>否</span><input type="radio" name="123" v-model="red" checked value="0">
       <br />
       <span>认证</span>
       <select v-model="avatar">
@@ -71,7 +74,8 @@
       </select>
       <br />
       <textarea v-model="message"></textarea>
-      <span>@的话后面加空格就好了，只能@一个人，误删了就全删掉再写就好了</span>
+      <p>直接去微博保存一下爱豆的头像就能用了</p>
+      <p>@的话后面加空格就好了，只能@一个人，误删了就全删掉再写</p>
     </form>
 </div>
 <script type="text/javascript">
@@ -111,6 +115,7 @@ var vm = new Vue({
          list:'',
          avatar:'',
          flag:1,
+         red:'',
          message:"Star一下么么",
          vip:[{id:1,value:"vip1"},
               {id:2,value:"vip2"},
@@ -132,9 +137,7 @@ var vm = new Vue({
           // console.log(v[this.list]);
           document.getElementById("img").src=v[this.list-1];
           var red=document.getElementById('red');
-         if(this.list>0){
-           red.style.color="#ea6111";
-         }
+          this.red==1?red.style.color="#ea6111":red.style.color="#333333";
         //选择头像下的标志
          var a=['images/gold.png','images/red.png','images/pink.png','images/blue.png','images/star.png'];
          var mvp=document.getElementById('mvp');
@@ -151,7 +154,7 @@ var vm = new Vue({
             this.message=this.message.replace(part,'<span style="color:#567cad">'+result+'</span>');
          }
         },
-        //监听一下message的改变，为空的时候再讲flag置1；
+        //监听一下message的改变，为空的时候再把flag置1；
         watch:{
           message(n,o){
             if(n==""){
